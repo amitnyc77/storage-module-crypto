@@ -1,0 +1,2518 @@
+definitions:
+  models.Invoice:
+    properties:
+      cost:
+        example: 1.56
+        type: number
+      ethAddress:
+        example: a 42-char eth address with 0x prefix
+        maxLength: 42
+        minLength: 42
+        type: string
+    required:
+    - ethAddress
+    type: object
+  routes.CreateShortlinkReq:
+    properties:
+      publicKey:
+        example: a 66-character public key
+        maxLength: 66
+        minLength: 66
+        type: string
+      requestBody:
+        example: look at description for example
+        type: string
+      signature:
+        description: |-
+          signature without 0x prefix is broken into
+          R: sig[0:63]
+          S: sig[64:127]
+        example: a 128 character string created when you signed the request with your
+          private key or account handle
+        maxLength: 128
+        minLength: 128
+        type: string
+    required:
+    - publicKey
+    - requestBody
+    - signature
+    type: object
+  routes.CreateShortlinkResp:
+    properties:
+      short_id:
+        type: string
+    type: object
+  routes.DownloadFileObj:
+    properties:
+      fileID:
+        example: the handle of the file
+        type: string
+    required:
+    - fileID
+    type: object
+  routes.InitFileUploadReq:
+    properties:
+      metadata:
+        example: the metadata of the file you are about to upload, as an array of
+          bytes
+        type: string
+      metadataAsFile:
+        type: string
+      publicKey:
+        example: a 66-character public key
+        maxLength: 66
+        minLength: 66
+        type: string
+      requestBody:
+        example: look at description for example
+        type: string
+      signature:
+        description: |-
+          signature without 0x prefix is broken into
+          R: sig[0:63]
+          S: sig[64:127]
+        example: a 128 character string created when you signed the request with your
+          private key or account handle
+        maxLength: 128
+        minLength: 128
+        type: string
+    required:
+    - metadata
+    - publicKey
+    - requestBody
+    - signature
+    type: object
+  routes.PlanResponse:
+    properties:
+      plans:
+        $ref: '#/definitions/utils.PlanResponseType'
+    type: object
+  routes.PrivateToPublicReq:
+    properties:
+      publicKey:
+        example: a 66-character public key
+        maxLength: 66
+        minLength: 66
+        type: string
+      requestBody:
+        example: look at description for example
+        type: string
+      signature:
+        description: |-
+          signature without 0x prefix is broken into
+          R: sig[0:63]
+          S: sig[64:127]
+        example: a 128 character string created when you signed the request with your
+          private key or account handle
+        maxLength: 128
+        minLength: 128
+        type: string
+    required:
+    - publicKey
+    - requestBody
+    - signature
+    type: object
+  routes.PublicFileDownloadResp:
+    properties:
+      s3_thumbnail_url:
+        type: string
+      s3_url:
+        type: string
+    type: object
+  routes.PublicShareOpsReq:
+    properties:
+      publicKey:
+        example: a 66-character public key
+        maxLength: 66
+        minLength: 66
+        type: string
+      requestBody:
+        example: look at description for example
+        type: string
+      signature:
+        description: |-
+          signature without 0x prefix is broken into
+          R: sig[0:63]
+          S: sig[64:127]
+        example: a 128 character string created when you signed the request with your
+          private key or account handle
+        maxLength: 128
+        minLength: 128
+        type: string
+    required:
+    - publicKey
+    - requestBody
+    - signature
+    type: object
+  routes.SmartContractResp:
+    properties:
+      contracts:
+        items:
+          $ref: '#/definitions/routes.SmartContractRespEntity'
+        type: array
+    type: object
+  routes.SmartContractRespEntity:
+    properties:
+      address:
+        type: string
+      chainId:
+        type: integer
+      network:
+        type: string
+    type: object
+  routes.StatusRes:
+    properties:
+      status:
+        example: status of the request
+        type: string
+    type: object
+  routes.UploadFileReq:
+    properties:
+      chunkData:
+        example: a binary string of the chunk data
+        type: string
+      publicKey:
+        example: a 66-character public key
+        maxLength: 66
+        minLength: 66
+        type: string
+      requestBody:
+        example: look at description for example
+        type: string
+      signature:
+        description: |-
+          signature without 0x prefix is broken into
+          R: sig[0:63]
+          S: sig[64:127]
+        example: a 128 character string created when you signed the request with your
+          private key or account handle
+        maxLength: 128
+        minLength: 128
+        type: string
+    required:
+    - chunkData
+    - publicKey
+    - requestBody
+    - signature
+    type: object
+  routes.UploadStatusReq:
+    properties:
+      publicKey:
+        example: a 66-character public key
+        maxLength: 66
+        minLength: 66
+        type: string
+      requestBody:
+        example: look at description for example
+        type: string
+      signature:
+        description: |-
+          signature without 0x prefix is broken into
+          R: sig[0:63]
+          S: sig[64:127]
+        example: a 128 character string created when you signed the request with your
+          private key or account handle
+        maxLength: 128
+        minLength: 128
+        type: string
+    required:
+    - publicKey
+    - requestBody
+    - signature
+    type: object
+  routes.accountCreateReq:
+    properties:
+      publicKey:
+        example: a 66-character public key
+        maxLength: 66
+        minLength: 66
+        type: string
+      requestBody:
+        example: look at description for example
+        type: string
+      signature:
+        description: |-
+          signature without 0x prefix is broken into
+          R: sig[0:63]
+          S: sig[64:127]
+        example: a 128 character string created when you signed the request with your
+          private key or account handle
+        maxLength: 128
+        minLength: 128
+        type: string
+    required:
+    - publicKey
+    - requestBody
+    - signature
+    type: object
+  routes.accountCreateRes:
+    properties:
+      expirationDate:
+        type: string
+      invoice:
+        $ref: '#/definitions/models.Invoice'
+    required:
+    - expirationDate
+    type: object
+  routes.accountDataRes:
+    properties:
+      account:
+        $ref: '#/definitions/routes.accountGetObj'
+      error:
+        example: the error encountered while checking
+        type: string
+      paymentStatus:
+        example: paid
+        type: string
+      stripeData:
+        $ref: '#/definitions/routes.stripeDataObj'
+    required:
+    - account
+    type: object
+  routes.accountGetObj:
+    properties:
+      accountID:
+        type: string
+      apiVersion:
+        type: integer
+      cost:
+        example: 2
+        type: number
+      createdAt:
+        type: string
+      ethAddress:
+        description: the eth address they will send payment to
+        example: a 42-char eth address with 0x prefix
+        maxLength: 42
+        minLength: 42
+        type: string
+      expirationDate:
+        type: string
+      maxFolders:
+        example: 2000
+        type: integer
+      maxMetadataSizeInMB:
+        example: 200
+        type: integer
+      monthsInSubscription:
+        description: number of months in their subscription
+        example: 12
+        type: integer
+      storageLimit:
+        description: how much storage they are allowed, in GB
+        example: 100
+        type: integer
+      storageUsed:
+        description: how much storage they have used, in GB
+        example: 30
+        type: number
+      totalFolders:
+        example: 2
+        type: integer
+      totalMetadataSizeInMB:
+        example: 1.245765432
+        type: number
+      updatedAt:
+        type: string
+    required:
+    - apiVersion
+    - ethAddress
+    - expirationDate
+    - monthsInSubscription
+    - storageLimit
+    type: object
+  routes.accountUnpaidRes:
+    properties:
+      account:
+        $ref: '#/definitions/routes.accountGetObj'
+      error:
+        example: the error encountered while checking
+        type: string
+      invoice:
+        $ref: '#/definitions/models.Invoice'
+      paymentStatus:
+        example: paid
+        type: string
+      stripeData:
+        $ref: '#/definitions/routes.stripeDataObj'
+    required:
+    - account
+    type: object
+  routes.checkRenewalStatusReq:
+    properties:
+      publicKey:
+        example: a 66-character public key
+        maxLength: 66
+        minLength: 66
+        type: string
+      requestBody:
+        example: look at description for example
+        type: string
+      signature:
+        description: |-
+          signature without 0x prefix is broken into
+          R: sig[0:63]
+          S: sig[64:127]
+        example: a 128 character string created when you signed the request with your
+          private key or account handle
+        maxLength: 128
+        minLength: 128
+        type: string
+    required:
+    - publicKey
+    - requestBody
+    - signature
+    type: object
+  routes.checkRenewalV2StatusReq:
+    properties:
+      publicKey:
+        example: a 66-character public key
+        maxLength: 66
+        minLength: 66
+        type: string
+      requestBody:
+        example: look at description for example
+        type: string
+      signature:
+        description: |-
+          signature without 0x prefix is broken into
+          R: sig[0:63]
+          S: sig[64:127]
+        example: a 128 character string created when you signed the request with your
+          private key or account handle
+        maxLength: 128
+        minLength: 128
+        type: string
+    required:
+    - publicKey
+    - requestBody
+    - signature
+    type: object
+  routes.checkUpgradeStatusReq:
+    properties:
+      publicKey:
+        example: a 66-character public key
+        maxLength: 66
+        minLength: 66
+        type: string
+      requestBody:
+        example: look at description for example
+        type: string
+      signature:
+        description: |-
+          signature without 0x prefix is broken into
+          R: sig[0:63]
+          S: sig[64:127]
+        example: a 128 character string created when you signed the request with your
+          private key or account handle
+        maxLength: 128
+        minLength: 128
+        type: string
+    required:
+    - publicKey
+    - requestBody
+    - signature
+    type: object
+  routes.checkUpgradeV2StatusReq:
+    properties:
+      publicKey:
+        example: a 66-character public key
+        maxLength: 66
+        minLength: 66
+        type: string
+      requestBody:
+        example: look at description for example
+        type: string
+      signature:
+        description: |-
+          signature without 0x prefix is broken into
+          R: sig[0:63]
+          S: sig[64:127]
+        example: a 128 character string created when you signed the request with your
+          private key or account handle
+        maxLength: 128
+        minLength: 128
+        type: string
+    required:
+    - publicKey
+    - requestBody
+    - signature
+    type: object
+  routes.createMetadataRes:
+    properties:
+      expirationDate:
+        type: string
+    required:
+    - expirationDate
+    type: object
+  routes.createStripePaymentReq:
+    properties:
+      publicKey:
+        example: a 66-character public key
+        maxLength: 66
+        minLength: 66
+        type: string
+      requestBody:
+        example: look at description for example
+        type: string
+      signature:
+        description: |-
+          signature without 0x prefix is broken into
+          R: sig[0:63]
+          S: sig[64:127]
+        example: a 128 character string created when you signed the request with your
+          private key or account handle
+        maxLength: 128
+        minLength: 128
+        type: string
+    required:
+    - publicKey
+    - requestBody
+    - signature
+    type: object
+  routes.deleteFileReq:
+    properties:
+      publicKey:
+        example: a 66-character public key
+        maxLength: 66
+        minLength: 66
+        type: string
+      requestBody:
+        example: look at description for example
+        type: string
+      signature:
+        description: |-
+          signature without 0x prefix is broken into
+          R: sig[0:63]
+          S: sig[64:127]
+        example: a 128 character string created when you signed the request with your
+          private key or account handle
+        maxLength: 128
+        minLength: 128
+        type: string
+    required:
+    - publicKey
+    - requestBody
+    - signature
+    type: object
+  routes.deleteFileRes:
+    type: object
+  routes.deleteFilesReq:
+    properties:
+      publicKey:
+        example: a 66-character public key
+        maxLength: 66
+        minLength: 66
+        type: string
+      requestBody:
+        example: look at description for example
+        type: string
+      signature:
+        description: |-
+          signature without 0x prefix is broken into
+          R: sig[0:63]
+          S: sig[64:127]
+        example: a 128 character string created when you signed the request with your
+          private key or account handle
+        maxLength: 128
+        minLength: 128
+        type: string
+    required:
+    - publicKey
+    - requestBody
+    - signature
+    type: object
+  routes.deleteFilesRes:
+    properties:
+      unsuccessfulDeletions:
+        additionalProperties:
+          type: string
+        type: object
+    type: object
+  routes.downloadFileRes:
+    properties:
+      fileDownloadUrl:
+        description: Url should point to S3, thus client does not need to download
+          it from this node.
+        example: a URL to use to download the file
+        type: string
+    type: object
+  routes.downloadPublicFileRes:
+    properties:
+      fileDownloadThumbnailUrl:
+        example: a URL to use to download the public file thumbnail
+        type: string
+      fileDownloadUrl:
+        example: a URL to use to download the public file
+        type: string
+    type: object
+  routes.getAccountDataReq:
+    properties:
+      publicKey:
+        example: a 66-character public key
+        maxLength: 66
+        minLength: 66
+        type: string
+      requestBody:
+        example: look at description for example
+        type: string
+      signature:
+        description: |-
+          signature without 0x prefix is broken into
+          R: sig[0:63]
+          S: sig[64:127]
+        example: a 128 character string created when you signed the request with your
+          private key or account handle
+        maxLength: 128
+        minLength: 128
+        type: string
+    required:
+    - publicKey
+    - requestBody
+    - signature
+    type: object
+  routes.getMetadataHistoryRes:
+    properties:
+      expirationDate:
+        type: string
+      metadata:
+        example: your account metadata
+        type: string
+      metadataHistory:
+        example:
+        - your account metadata
+        items:
+          type: string
+        type: array
+    required:
+    - expirationDate
+    - metadata
+    - metadataHistory
+    type: object
+  routes.getMetadataRes:
+    properties:
+      expirationDate:
+        type: string
+      metadata:
+        example: your account metadata
+        type: string
+    required:
+    - expirationDate
+    - metadata
+    type: object
+  routes.getMetadataV2Res:
+    properties:
+      expirationDate:
+        type: string
+      metadataV2:
+        example: your account metadataV2
+        type: string
+    required:
+    - expirationDate
+    - metadataV2
+    type: object
+  routes.getRenewalAccountInvoiceReq:
+    properties:
+      publicKey:
+        example: a 66-character public key
+        maxLength: 66
+        minLength: 66
+        type: string
+      requestBody:
+        example: look at description for example
+        type: string
+      signature:
+        description: |-
+          signature without 0x prefix is broken into
+          R: sig[0:63]
+          S: sig[64:127]
+        example: a 128 character string created when you signed the request with your
+          private key or account handle
+        maxLength: 128
+        minLength: 128
+        type: string
+    required:
+    - publicKey
+    - requestBody
+    - signature
+    type: object
+  routes.getRenewalAccountInvoiceRes:
+    properties:
+      opctInvoice:
+        $ref: '#/definitions/models.Invoice'
+    type: object
+  routes.getRenewalV2AccountInvoiceReq:
+    properties:
+      publicKey:
+        example: a 66-character public key
+        maxLength: 66
+        minLength: 66
+        type: string
+      requestBody:
+        example: look at description for example
+        type: string
+      signature:
+        description: |-
+          signature without 0x prefix is broken into
+          R: sig[0:63]
+          S: sig[64:127]
+        example: a 128 character string created when you signed the request with your
+          private key or account handle
+        maxLength: 128
+        minLength: 128
+        type: string
+    required:
+    - publicKey
+    - requestBody
+    - signature
+    type: object
+  routes.getRenewalV2AccountInvoiceRes:
+    properties:
+      opctInvoice:
+        $ref: '#/definitions/models.Invoice'
+    type: object
+  routes.getUpgradeAccountInvoiceReq:
+    properties:
+      publicKey:
+        example: a 66-character public key
+        maxLength: 66
+        minLength: 66
+        type: string
+      requestBody:
+        example: look at description for example
+        type: string
+      signature:
+        description: |-
+          signature without 0x prefix is broken into
+          R: sig[0:63]
+          S: sig[64:127]
+        example: a 128 character string created when you signed the request with your
+          private key or account handle
+        maxLength: 128
+        minLength: 128
+        type: string
+    required:
+    - publicKey
+    - requestBody
+    - signature
+    type: object
+  routes.getUpgradeAccountInvoiceRes:
+    properties:
+      opctInvoice:
+        $ref: '#/definitions/models.Invoice'
+    type: object
+  routes.getUpgradeV2AccountInvoiceReq:
+    properties:
+      publicKey:
+        example: a 66-character public key
+        maxLength: 66
+        minLength: 66
+        type: string
+      requestBody:
+        example: look at description for example
+        type: string
+      signature:
+        description: |-
+          signature without 0x prefix is broken into
+          R: sig[0:63]
+          S: sig[64:127]
+        example: a 128 character string created when you signed the request with your
+          private key or account handle
+        maxLength: 128
+        minLength: 128
+        type: string
+    required:
+    - publicKey
+    - requestBody
+    - signature
+    type: object
+  routes.getUpgradeV2AccountInvoiceRes:
+    properties:
+      opctInvoice:
+        $ref: '#/definitions/models.Invoice'
+    type: object
+  routes.metadataKeyReq:
+    properties:
+      publicKey:
+        example: a 66-character public key
+        maxLength: 66
+        minLength: 66
+        type: string
+      requestBody:
+        example: look at description for example
+        type: string
+      signature:
+        description: |-
+          signature without 0x prefix is broken into
+          R: sig[0:63]
+          S: sig[64:127]
+        example: a 128 character string created when you signed the request with your
+          private key or account handle
+        maxLength: 128
+        minLength: 128
+        type: string
+    required:
+    - publicKey
+    - requestBody
+    - signature
+    type: object
+  routes.metadataMultipleV2KeyReq:
+    properties:
+      publicKey:
+        example: a 66-character public key
+        maxLength: 66
+        minLength: 66
+        type: string
+      requestBody:
+        example: look at description for example
+        type: string
+      signature:
+        description: |-
+          signature without 0x prefix is broken into
+          R: sig[0:63]
+          S: sig[64:127]
+        example: a 128 character string created when you signed the request with your
+          private key or account handle
+        maxLength: 128
+        minLength: 128
+        type: string
+    required:
+    - publicKey
+    - requestBody
+    - signature
+    type: object
+  routes.metadataV2KeyReq:
+    properties:
+      publicKey:
+        example: a 66-character public key
+        maxLength: 66
+        minLength: 66
+        type: string
+      requestBody:
+        example: look at description for example
+        type: string
+      signature:
+        description: |-
+          signature without 0x prefix is broken into
+          R: sig[0:63]
+          S: sig[64:127]
+        example: a 128 character string created when you signed the request with your
+          private key or account handle
+        maxLength: 128
+        minLength: 128
+        type: string
+    required:
+    - publicKey
+    - requestBody
+    - signature
+    type: object
+  routes.metadataV2PublicKeyReq:
+    properties:
+      requestBody:
+        example: look at description for example
+        type: string
+    required:
+    - requestBody
+    type: object
+  routes.stripeDataObj:
+    properties:
+      amount:
+        type: number
+      chargeID:
+        type: string
+      chargePaid:
+        type: boolean
+      opctTxStatus:
+        type: string
+      stripePaymentExists:
+        type: boolean
+      stripeToken:
+        type: string
+    type: object
+  routes.stripeDataRes:
+    properties:
+      amount:
+        type: number
+      chargeID:
+        type: string
+      chargePaid:
+        type: boolean
+      opctTxStatus:
+        type: string
+      status:
+        example: status of the request
+        type: string
+      stripePaymentExists:
+        type: boolean
+      stripeToken:
+        type: string
+    type: object
+  routes.updateMetadataMultipleV2Req:
+    properties:
+      publicKey:
+        example: a 66-character public key
+        maxLength: 66
+        minLength: 66
+        type: string
+      requestBody:
+        example: look at description for example
+        type: string
+      signature:
+        description: |-
+          signature without 0x prefix is broken into
+          R: sig[0:63]
+          S: sig[64:127]
+        example: a 128 character string created when you signed the request with your
+          private key or account handle
+        maxLength: 128
+        minLength: 128
+        type: string
+    required:
+    - publicKey
+    - requestBody
+    - signature
+    type: object
+  routes.updateMetadataMultipleV2Res:
+    properties:
+      expirationDate:
+        type: string
+      failedMetadatas:
+        additionalProperties:
+          type: string
+        type: object
+      metadatas:
+        items:
+          $ref: '#/definitions/routes.updateMetadataV2ResBase'
+        type: array
+    required:
+    - expirationDate
+    - metadatas
+    type: object
+  routes.updateMetadataReq:
+    properties:
+      publicKey:
+        example: a 66-character public key
+        maxLength: 66
+        minLength: 66
+        type: string
+      requestBody:
+        example: look at description for example
+        type: string
+      signature:
+        description: |-
+          signature without 0x prefix is broken into
+          R: sig[0:63]
+          S: sig[64:127]
+        example: a 128 character string created when you signed the request with your
+          private key or account handle
+        maxLength: 128
+        minLength: 128
+        type: string
+    required:
+    - publicKey
+    - requestBody
+    - signature
+    type: object
+  routes.updateMetadataRes:
+    properties:
+      expirationDate:
+        type: string
+      metadata:
+        example: your (updated) account metadata
+        type: string
+      metadataKey:
+        example: a 64-char hex string created deterministically, will be a key for
+          the metadata of one of your folders
+        type: string
+    required:
+    - expirationDate
+    - metadata
+    - metadataKey
+    type: object
+  routes.updateMetadataV2Req:
+    properties:
+      publicKey:
+        example: a 66-character public key
+        maxLength: 66
+        minLength: 66
+        type: string
+      requestBody:
+        example: look at description for example
+        type: string
+      signature:
+        description: |-
+          signature without 0x prefix is broken into
+          R: sig[0:63]
+          S: sig[64:127]
+        example: a 128 character string created when you signed the request with your
+          private key or account handle
+        maxLength: 128
+        minLength: 128
+        type: string
+    required:
+    - publicKey
+    - requestBody
+    - signature
+    type: object
+  routes.updateMetadataV2Res:
+    properties:
+      expirationDate:
+        type: string
+      metadataV2:
+        example: your (updated) account metadataV2
+        type: string
+      metadataV2Key:
+        example: public key for the metadataV2 encoded to base64url
+        type: string
+    required:
+    - expirationDate
+    - metadataV2
+    - metadataV2Key
+    type: object
+  routes.updateMetadataV2ResBase:
+    properties:
+      metadataV2:
+        example: your (updated) account metadataV2
+        type: string
+      metadataV2Key:
+        example: public key for the metadataV2 encoded to base64url
+        type: string
+    required:
+    - metadataV2
+    - metadataV2Key
+    type: object
+  routes.viewsCountResp:
+    properties:
+      count:
+        type: integer
+    type: object
+  utils.PlanInfo:
+    properties:
+      cost:
+        type: number
+      costInUSD:
+        type: number
+      maxFolders:
+        type: integer
+      maxMetadataSizeInMB:
+        type: integer
+      name:
+        type: string
+      storageInGB:
+        type: integer
+    type: object
+  utils.PlanResponseType:
+    additionalProperties:
+      $ref: '#/definitions/utils.PlanInfo'
+    type: object
+info:
+  contact:
+    name: Opacity Staff
+    url: https://telegram.me/opacitystorage
+  description: Opacity backend for file storage.
+  license:
+    name: OPACITY LIMITED CODE REVIEW LICENSE LICENSE.md
+  termsOfService: https://opacity.io/terms-of-service
+  title: Storage Node
+  version: "1.0"
+paths:
+  /api/v1/account-data:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        check the payment status of an account
+        requestBody should be a stringified version of (values are just examples):
+        {
+        "timestamp": 1557346389
+        }
+      parameters:
+      - description: account payment status check object
+        in: body
+        name: getAccountDataReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.getAccountDataReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.accountUnpaidRes'
+        "400":
+          description: 'bad request, unable to parse request body: (with the error)'
+          schema:
+            type: string
+        "404":
+          description: 'no account with that id: (with your accountID)'
+          schema:
+            type: string
+      summary: check the payment status of an account
+  /api/v1/accounts:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        create an account
+        requestBody should be a stringified version of (values are just examples):
+        {
+        "storageLimit": 100,
+        "durationInMonths": 12,
+        }
+      parameters:
+      - description: account creation object
+        in: body
+        name: accountCreateReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.accountCreateReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.accountCreateRes'
+        "400":
+          description: 'bad request, unable to parse request body: (with the error)'
+          schema:
+            type: string
+        "503":
+          description: 'error encrypting private key: (with the error)'
+          schema:
+            type: string
+      summary: create an account
+  /api/v1/delete:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        delete a file
+        requestBody should be a stringified version of (values are just examples):
+        {
+        "fileID": "the handle of the file",
+        }
+      parameters:
+      - description: file deletion object
+        in: body
+        name: deleteFileReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.deleteFileReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.deleteFileRes'
+        "400":
+          description: 'bad request, unable to parse request body: (with the error)'
+          schema:
+            type: string
+        "500":
+          description: some information about the internal error
+          schema:
+            type: string
+      summary: delete a file
+  /api/v1/download:
+    post:
+      consumes:
+      - application/json
+      description: download a file without cryptographic verification
+      parameters:
+      - description: download object for non-signed requests
+        in: body
+        name: routes.DownloadFileObj
+        required: true
+        schema:
+          $ref: '#/definitions/routes.DownloadFileObj'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.downloadFileRes'
+        "400":
+          description: 'bad request, unable to parse request body: (with the error)'
+          schema:
+            type: string
+        "404":
+          description: such data does not exist
+          schema:
+            type: string
+        "500":
+          description: some information about the internal error
+          schema:
+            type: string
+      summary: download a file without cryptographic verification
+  /api/v1/init-upload:
+    post:
+      consumes:
+      - multipart/form-data
+      description: |-
+        start an upload
+        requestBody should be a stringified version of (values are just examples):
+        {
+        "fileHandle": "a deterministically created file handle",
+        "fileSizeInByte": "200000000000006",
+        "endIndex": 2
+        }
+      parameters:
+      - description: an object to start a file upload
+        in: body
+        name: InitFileUploadReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.InitFileUploadReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.StatusRes'
+        "400":
+          description: 'bad request, unable to parse request body: (with the error)'
+          schema:
+            type: string
+        "403":
+          description: signature did not match
+          schema:
+            type: string
+        "500":
+          description: some information about the internal error
+          schema:
+            type: string
+      summary: start an upload
+  /api/v1/metadata/create:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        requestBody should be a stringified version of (values are just examples):
+        {
+        "metadataKey": "a 64-char hex string created deterministically, will be a key for the metadata of one of your folders",
+        "timestamp": 1557346389
+        }
+      parameters:
+      - description: object for endpoints that only need metadataKey and timestamp
+        in: body
+        name: metadataKeyReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.metadataKeyReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.createMetadataRes'
+        "400":
+          description: 'bad request, unable to parse request body: (with the error)'
+          schema:
+            type: string
+        "403":
+          description: subscription expired, or the invoice resonse
+          schema:
+            type: string
+        "404":
+          description: account not found
+          schema:
+            type: string
+        "500":
+          description: some information about the internal error
+          schema:
+            type: string
+      summary: create a new metadata
+  /api/v1/metadata/delete:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        requestBody should be a stringified version of (values are just examples):
+        {
+        "metadataKey": "a 64-char hex string created deterministically, will be a key for the metadata of one of your folders",
+        "timestamp": 1557346389
+        }
+      parameters:
+      - description: object for endpoints that only need metadataKey and timestamp
+        in: body
+        name: metadataKeyReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.metadataKeyReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.StatusRes'
+        "400":
+          description: 'bad request, unable to parse request body: (with the error)'
+          schema:
+            type: string
+        "403":
+          description: subscription expired, or the invoice resonse
+          schema:
+            type: string
+        "404":
+          description: account not found
+          schema:
+            type: string
+        "500":
+          description: some information about the internal error
+          schema:
+            type: string
+      summary: delete a metadata
+  /api/v1/metadata/get:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        requestBody should be a stringified version of (values are just examples):
+        {
+        "metadataKey": "a 64-char hex string created deterministically, will be a key for the metadata of one of your folders",
+        "timestamp": 1557346389
+        }
+      parameters:
+      - description: object for endpoints that only need metadataKey and timestamp
+        in: body
+        name: metadataKeyReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.metadataKeyReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.getMetadataRes'
+        "403":
+          description: subscription expired, or the invoice resonse
+          schema:
+            type: string
+        "404":
+          description: no value found for that key, or account not found
+          schema:
+            type: string
+      summary: Retrieve account metadata
+  /api/v1/metadata/history:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        requestBody should be a stringified version of (values are just examples):
+        {
+        "metadataKey": "a 64-char hex string created deterministically, will be a key for the metadata of one of your folders",
+        "timestamp": 1557346389
+        }
+      parameters:
+      - description: object for endpoints that only need metadataKey and timestamp
+        in: body
+        name: metadataKeyReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.metadataKeyReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.getMetadataHistoryRes'
+        "403":
+          description: subscription expired, or the invoice resonse
+          schema:
+            type: string
+        "404":
+          description: no value found for that key, or account not found
+          schema:
+            type: string
+      summary: Retrieve metadata history
+  /api/v1/metadata/set:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        requestBody should be a stringified version of (values are just examples):
+        {
+        "metadataKey": "a 64-char hex string created deterministically, will be a key for the metadata of one of your folders",
+        "metadata": "your (updated) account metadata",
+        "timestamp": 1557346389
+        }
+      parameters:
+      - description: update metadata object
+        in: body
+        name: updateMetadataReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.updateMetadataReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.updateMetadataRes'
+        "400":
+          description: 'bad request, unable to parse request body: (with the error)'
+          schema:
+            type: string
+        "403":
+          description: subscription expired, or the invoice response
+          schema:
+            type: string
+        "404":
+          description: no value found for that key, or account not found
+          schema:
+            type: string
+        "500":
+          description: some information about the internal error
+          schema:
+            type: string
+      summary: Update metadata
+  /api/v1/renew:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        check the renewal status
+        requestBody should be a stringified version of (values are just examples):
+        {
+        "metadataKeys": "["someKey", "someOtherKey]",
+        "fileHandles": "["someHandle", "someOtherHandle]",
+        }
+      parameters:
+      - description: check renewal status object
+        in: body
+        name: checkRenewalStatusReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.checkRenewalStatusReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.StatusRes'
+        "400":
+          description: 'bad request, unable to parse request body: (with the error)'
+          schema:
+            type: string
+        "404":
+          description: 'no account with that id: (with your accountID)'
+          schema:
+            type: string
+        "500":
+          description: some information about the internal error
+          schema:
+            type: string
+      summary: check the renewal status
+  /api/v1/renew/invoice:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        get an invoice to renew an account
+        requestBody should be a stringified version of (values are just examples):
+        {
+        }
+      parameters:
+      - description: get renewal invoice object
+        in: body
+        name: getRenewalAccountInvoiceReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.getRenewalAccountInvoiceReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.getRenewalAccountInvoiceRes'
+        "400":
+          description: 'bad request, unable to parse request body: (with the error)'
+          schema:
+            type: string
+        "404":
+          description: 'no account with that id: (with your accountID)'
+          schema:
+            type: string
+        "500":
+          description: some information about the internal error
+          schema:
+            type: string
+      summary: get an invoice to renew an account
+  /api/v1/stripe/create:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        create a stripe payment
+        requestBody should be a stringified version of (values are just examples):
+        {
+        "stripeToken": "tok_KPte7942xySKBKyrBu11yEpf",
+        "timestamp": 1659325302,
+        }
+      parameters:
+      - description: stripe payment creation object
+        in: body
+        name: createStripePaymentReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.createStripePaymentReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.stripeDataRes'
+        "400":
+          description: 'bad request, unable to parse request body: (with the error)'
+          schema:
+            type: string
+        "403":
+          description: account is already paid for
+          schema:
+            type: string
+        "404":
+          description: 'no account with that id: (with your accountID)'
+          schema:
+            type: string
+        "500":
+          description: some information about the internal error
+          schema:
+            type: string
+      summary: create a stripe payment
+  /api/v1/upgrade:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        check the upgrade status
+        requestBody should be a stringified version of (values are just examples):
+        {
+        "storageLimit": 100,
+        "durationInMonths": 12,
+        "metadataKeys": "["someKey", "someOtherKey]",
+        "fileHandles": "["someHandle", "someOtherHandle]",
+        }
+      parameters:
+      - description: check upgrade status object
+        in: body
+        name: checkUpgradeStatusReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.checkUpgradeStatusReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.StatusRes'
+        "400":
+          description: 'bad request, unable to parse request body: (with the error)'
+          schema:
+            type: string
+        "404":
+          description: 'no account with that id: (with your accountID)'
+          schema:
+            type: string
+        "500":
+          description: some information about the internal error
+          schema:
+            type: string
+      summary: check the upgrade status
+  /api/v1/upgrade/invoice:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        get an invoice to upgrade an account
+        requestBody should be a stringified version of (values are just examples):
+        {
+        "storageLimit": 100,
+        "durationInMonths": 12,
+        }
+      parameters:
+      - description: get upgrade invoice object
+        in: body
+        name: getUpgradeAccountInvoiceReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.getUpgradeAccountInvoiceReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.getUpgradeAccountInvoiceRes'
+        "400":
+          description: 'bad request, unable to parse request body: (with the error)'
+          schema:
+            type: string
+        "404":
+          description: 'no account with that id: (with your accountID)'
+          schema:
+            type: string
+        "500":
+          description: some information about the internal error
+          schema:
+            type: string
+      summary: get an invoice to upgrade an account
+  /api/v1/upgradeV2:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        check the upgradeV2 status
+        requestBody should be a stringified version of (values are just examples):
+        {
+        "storageLimit": 100,
+        "durationInMonths": 12,
+        "metadataKeys": "["someKey", "someOtherKey]",
+        "fileHandles": "["someHandle", "someOtherHandle]",
+        }
+      parameters:
+      - description: check upgradeV2 status object
+        in: body
+        name: checkUpgradeV2StatusReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.checkUpgradeV2StatusReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.StatusRes'
+        "400":
+          description: 'bad request, unable to parse request body: (with the error)'
+          schema:
+            type: string
+        "404":
+          description: 'no account with that id: (with your accountID)'
+          schema:
+            type: string
+        "500":
+          description: some information about the internal error
+          schema:
+            type: string
+      summary: check the upgradeV2 status
+  /api/v1/upgradeV2/invoice:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        get an invoice to upgradeV2 an account
+        requestBody should be a stringified version of (values are just examples):
+        {
+        "storageLimit": 100,
+        "durationInMonths": 12,
+        }
+      parameters:
+      - description: get upgradeV2 invoice object
+        in: body
+        name: getUpgradeV2AccountInvoiceReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.getUpgradeV2AccountInvoiceReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.getUpgradeV2AccountInvoiceRes'
+        "400":
+          description: 'bad request, unable to parse request body: (with the error)'
+          schema:
+            type: string
+        "404":
+          description: 'no account with that id: (with your accountID)'
+          schema:
+            type: string
+        "500":
+          description: some information about the internal error
+          schema:
+            type: string
+      summary: get an invoice to upgradeV2 an account
+  /api/v1/upload:
+    post:
+      consumes:
+      - multipart/form-data
+      description: |-
+        upload a chunk of a file. The first partIndex must be 1.
+        requestBody should be a stringified version of (values are just examples):
+        {
+        "fileHandle": "a deterministically created file handle",
+        "partIndex": 1,
+        }
+      parameters:
+      - description: an object to upload a chunk of a file
+        in: body
+        name: UploadFileReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.UploadFileReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.StatusRes'
+        "400":
+          description: 'bad request, unable to parse request body: (with the error)'
+          schema:
+            type: string
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/routes.accountCreateRes'
+        "500":
+          description: some information about the internal error
+          schema:
+            type: string
+      summary: upload a chunk of a file
+  /api/v1/upload-status:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        check status of an upload
+        requestBody should be a stringified version of (values are just examples):
+        {
+        "fileHandle": "a deterministically created file handle",
+        }
+      parameters:
+      - description: an object to poll upload status
+        in: body
+        name: UploadStatusReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.UploadStatusReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.StatusRes'
+        "400":
+          description: 'bad request, unable to parse request body: (with the error)'
+          schema:
+            type: string
+        "403":
+          description: signature did not match
+          schema:
+            type: string
+        "404":
+          description: file or account not found
+          schema:
+            type: string
+        "500":
+          description: some information about the internal error
+          schema:
+            type: string
+      summary: check status of an upload
+  /api/v2/account/updateApiVersion:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        update the account api version to v2
+        requestBody should be a stringified version of (values are just examples):
+        {
+        "timestamp": 1659325302
+        }
+      parameters:
+      - description: account object
+        in: body
+        name: getAccountDataReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.getAccountDataReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.StatusRes'
+        "400":
+          description: 'bad request, unable to parse request body: (with the error)'
+          schema:
+            type: string
+        "404":
+          description: 'no account with that id: (with your accountID)'
+          schema:
+            type: string
+      summary: update the account api version to v2
+  /api/v2/delete:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        deletes files
+        requestBody should be a stringified version of:
+        {
+        "fileIDs": [],
+        }
+      parameters:
+      - description: file(s) deletion object
+        in: body
+        name: deleteFilesReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.deleteFilesReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.deleteFilesRes'
+        "400":
+          description: 'bad request, unable to parse request body: (with the error)'
+          schema:
+            type: string
+        "500":
+          description: some information about the internal error
+          schema:
+            type: string
+      summary: deletes files
+  /api/v2/download/private:
+    post:
+      consumes:
+      - application/json
+      description: download a file without cryptographic verification
+      parameters:
+      - description: download object for non-signed requests
+        in: body
+        name: routes.DownloadFileObj
+        required: true
+        schema:
+          $ref: '#/definitions/routes.DownloadFileObj'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.downloadFileRes'
+        "400":
+          description: 'bad request, unable to parse request body: (with the error)'
+          schema:
+            type: string
+        "404":
+          description: such data does not exist
+          schema:
+            type: string
+        "500":
+          description: some information about the internal error
+          schema:
+            type: string
+      summary: download a file without cryptographic verification
+  /api/v2/download/public:
+    post:
+      consumes:
+      - application/json
+      description: returns the URLs for a public file and it's thumbnail, if no thumbnail
+        is present, return a default one
+      parameters:
+      - description: download object for non-signed requests
+        in: body
+        name: routes.DownloadFileObj
+        required: true
+        schema:
+          $ref: '#/definitions/routes.DownloadFileObj'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.downloadPublicFileRes'
+        "400":
+          description: 'bad request, unable to parse request body: (with the error)'
+          schema:
+            type: string
+        "404":
+          description: such data does not exist
+          schema:
+            type: string
+        "500":
+          description: some information about the internal error
+          schema:
+            type: string
+      summary: returns the URLs for a public file and it's thumbnail
+  /api/v2/init-upload-public:
+    post:
+      consumes:
+      - multipart/form-data
+      description: |-
+        start a public upload.
+        requestBody should be a stringified version of (values are just examples):
+        {
+        "fileHandle": "the file ID for which the public file should be created",
+        "fileSizeInByte": "55600008877",
+        "endIndex": 2
+        }
+      parameters:
+      - description: an object to start a public file upload
+        in: body
+        name: InitFileUploadReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.InitFileUploadReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.StatusRes'
+        "400":
+          description: 'bad request, unable to parse request body: (with the error)'
+          schema:
+            type: string
+        "403":
+          description: signature did not match / account does not exist
+          schema:
+            type: string
+        "500":
+          description: some information about the internal error
+          schema:
+            type: string
+      summary: start a public upload
+  /api/v2/metadata/add:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        requestBody should be a stringified version of (values are just examples):
+        {
+        "metadataV2Key": "public key for the metadataV2 encoded to base64",
+        "metadataV2Vertex": "the vertex to add to your account metadataV2 encoded to base64",
+        "metadataV2Edges": "the edges to add to your account metadataV2 encoded to base64",
+        "metadataV2Sig": "a signature encoded to base64 confirming the metadata change, the publickey will be a key for the metadataV2",
+        "timestamp": 1557346389
+        }
+      parameters:
+      - description: update metadataV2 object
+        in: body
+        name: updateMetadataV2Req
+        required: true
+        schema:
+          $ref: '#/definitions/routes.updateMetadataV2Req'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.updateMetadataV2Res'
+        "400":
+          description: 'bad request, can''t verify signature: (with the error)'
+          schema:
+            type: string
+        "403":
+          description: subscription expired, or the invoice response
+          schema:
+            type: string
+        "404":
+          description: no value found for that key, or account not found
+          schema:
+            type: string
+        "500":
+          description: some information about the internal error
+          schema:
+            type: string
+      summary: Update metadataV2
+  /api/v2/metadata/add-multiple:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        requestBody should be a stringified version of (values are just examples):
+        {
+        "metadatas": [{
+        "metadataV2Key": "public key for the metadataV2 encoded to base64",
+        "metadataV2Vertex": "the vertex to add to your account metadataV2 encoded to base64",
+        "metadataV2Edges": "the edges to add to your account metadataV2 encoded to base64",
+        "metadataV2Sig": "a signature encoded to base64 confirming the metadata change, the publickey will be a key for the metadataV2",
+        },
+        { ... }]
+        "timestamp": 1557346389
+        }
+      parameters:
+      - description: update metadataV2 objects
+        in: body
+        name: updateMetadataMultipleV2Req
+        required: true
+        schema:
+          $ref: '#/definitions/routes.updateMetadataMultipleV2Req'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.updateMetadataMultipleV2Res'
+        "400":
+          description: 'bad request, can''t verify signature: (with the error)'
+          schema:
+            type: string
+        "403":
+          description: subscription expired, or the invoice response
+          schema:
+            type: string
+        "500":
+          description: some information about the internal error
+          schema:
+            type: string
+      summary: Update multiple metadataV2
+  /api/v2/metadata/delete:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        requestBody should be a stringified version of (values are just examples):
+        {
+        "metadataV2Key": "public key for the metadataV2 encoded to base64",
+        "timestamp": 1557346389
+        }
+      parameters:
+      - description: object for endpoints that only need metadataV2Key and timestamp
+        in: body
+        name: metadataV2KeyReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.metadataV2KeyReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.StatusRes'
+        "400":
+          description: bad request, incorrect key length
+          schema:
+            type: string
+        "403":
+          description: subscription expired, or the invoice resonse
+          schema:
+            type: string
+        "404":
+          description: account not found
+          schema:
+            type: string
+        "500":
+          description: some information about the internal error
+          schema:
+            type: string
+      summary: delete a metadataV2
+  /api/v2/metadata/delete-multiple:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        requestBody should be a stringified version of (values are just examples):
+        {
+        "metadataV2Keys": ["public key for the metadataV2 encoded to base64", "another public key for the metadataV2 encoded to base64", "..."],
+        "timestamp": 1557346389
+        }
+      parameters:
+      - description: object for endpoint that only needs an array of metadataV2Keys
+          and timestamp
+        in: body
+        name: metadataMultipleV2KeyReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.metadataMultipleV2KeyReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.StatusRes'
+        "400":
+          description: bad request, incorrect key length
+          schema:
+            type: string
+        "403":
+          description: subscription expired, or the invoice resonse
+          schema:
+            type: string
+        "404":
+          description: account not found
+          schema:
+            type: string
+        "500":
+          description: some information about the internal error
+          schema:
+            type: string
+      summary: delete multiple metadataV2, if a key is not found, it won't be treated
+        as an error
+  /api/v2/metadata/get:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        requestBody should be a stringified version of (values are just examples):
+        {
+        "metadataV2Key": "public key for the metadataV2 encoded to base64",
+        "timestamp": 1557346389
+        }
+      parameters:
+      - description: object for endpoints that only need metadataV2Key and timestamp
+        in: body
+        name: metadataV2KeyReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.metadataV2KeyReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.getMetadataV2Res'
+        "400":
+          description: bad request, incorrect key length
+          schema:
+            type: string
+        "403":
+          description: subscription expired, or the invoice resonse
+          schema:
+            type: string
+        "404":
+          description: no value found for that key, or account not found
+          schema:
+            type: string
+      summary: Retrieve account metadataV2
+  /api/v2/metadata/get-public:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        requestBody should be a stringified version of (values are just examples):
+        {
+        "metadataV2Key": "public key for the metadataV2 encoded to base64",
+        "timestamp": 1557346389
+        }
+      parameters:
+      - description: object for endpoints that only need metadataV2Key and timestamp
+        in: body
+        name: metadataV2PublicKeyReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.metadataV2PublicKeyReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.getMetadataV2Res'
+        "400":
+          description: bad request, incorrect key length
+          schema:
+            type: string
+        "403":
+          description: subscription expired, or the invoice resonse
+          schema:
+            type: string
+        "404":
+          description: no value found for that key, or account not found
+          schema:
+            type: string
+      summary: Retrieve account metadataV2
+  /api/v2/public-share/:shortlink:
+    get:
+      consumes:
+      - application/json
+      description: get the S3 URL for a publicly shared file
+      parameters:
+      - description: shortlink ID
+        in: path
+        name: shortlink
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.PublicFileDownloadResp'
+        "404":
+          description: file does not exist
+          schema:
+            type: string
+        "500":
+          description: there was an error parsing your request
+          schema:
+            type: string
+      summary: get S3 url for a publicly shared file
+  /api/v2/public-share/convert:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        convert private file to a public shared one
+        requestBody should be a stringified version of:
+        {
+        "fileHandle": "a deterministically created file handle",
+        "fileSize": 543534,
+        }
+      parameters:
+      - description: an object to do the conversion of a private file to a public
+          one
+        in: body
+        name: PrivateToPublicReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.PrivateToPublicReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.StatusRes'
+        "400":
+          description: 'bad request, unable to parse request body: (with the error)'
+          schema:
+            type: string
+        "403":
+          description: signature did not match
+          schema:
+            type: string
+        "404":
+          description: the data does not exist
+          schema:
+            type: string
+      summary: convert private file to a public shared one
+  /api/v2/public-share/revoke:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        remove a public share entry, revoke the share
+        requestBody should be a stringified version of):
+        {
+        "shortlink": "the shortlink of the completed file",
+        }
+      parameters:
+      - description: an object to do operations on a public share
+        in: body
+        name: PublicShareOpsReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.PublicShareOpsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.StatusRes'
+        "400":
+          description: bad request, unable to revoke public share
+          schema:
+            type: string
+        "403":
+          description: signature did not match
+          schema:
+            type: string
+        "404":
+          description: file does not exist
+          schema:
+            type: string
+        "500":
+          description: public file could not be deleted from databse or S3
+          schema:
+            type: string
+      summary: revokes public share
+  /api/v2/public-share/shortlink:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        this endpoint will created a new shortlink based on the fileHandle, a title and a description
+        requestBody should be a stringified version of:
+        {
+        "fileId": "the ID of the file",
+        "title": "the title of the file",
+        "description": "a description of the file",
+        "mimeType": "the file mimeType example: image/png",
+        "fileExtension": "the file extension, example: png"
+        }
+      parameters:
+      - description: an object to create a shortlink for a public shared file
+        in: body
+        name: CreateShortlinkReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.CreateShortlinkReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.CreateShortlinkResp'
+        "400":
+          description: 'bad request, unable to parse request body: (with the error)'
+          schema:
+            type: string
+        "403":
+          description: signature did not match
+          schema:
+            type: string
+        "404":
+          description: the data does not exist
+          schema:
+            type: string
+      summary: creates a shortlink
+  /api/v2/public-share/views-count:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        get the views count for a publicly shared file
+        requestBody should be a stringified version of:
+        {
+        "shortlink": "the shortlink of the completed file",
+        }
+      parameters:
+      - description: an object to do operations on a public share
+        in: body
+        name: PublicShareOpsReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.PublicShareOpsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.viewsCountResp'
+        "400":
+          description: bad request, unable to get views count
+          schema:
+            type: string
+        "403":
+          description: signature did not match
+          schema:
+            type: string
+        "404":
+          description: public share or file does not exist
+          schema:
+            type: string
+      summary: get views count
+  /api/v2/renew:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        check the renewalV2 status
+        requestBody should be a stringified version of (values are just examples):
+        {
+        "metadataKeys": "["someKey", "someOtherKey]",
+        "fileHandles": "["someHandle", "someOtherHandle]",
+        }
+      parameters:
+      - description: check renewalV2 status object
+        in: body
+        name: checkRenewalV2StatusReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.checkRenewalV2StatusReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.StatusRes'
+        "400":
+          description: 'bad request, unable to parse request body: (with the error)'
+          schema:
+            type: string
+        "404":
+          description: 'no account with that id: (with your accountID)'
+          schema:
+            type: string
+        "500":
+          description: some information about the internal error
+          schema:
+            type: string
+      summary: check the renewalV2 status
+  /api/v2/renew/invoice:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        get an invoice to renew an account
+        requestBody should be a stringified version of (values are just examples):
+        {
+        }
+      parameters:
+      - description: get renewalV2 invoice object
+        in: body
+        name: getRenewalV2AccountInvoiceReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.getRenewalV2AccountInvoiceReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.getRenewalV2AccountInvoiceRes'
+        "400":
+          description: 'bad request, unable to parse request body: (with the error)'
+          schema:
+            type: string
+        "404":
+          description: 'no account with that id: (with your accountID)'
+          schema:
+            type: string
+        "500":
+          description: some information about the internal error
+          schema:
+            type: string
+      summary: get an invoice to renew an account
+  /api/v2/smart-contracts:
+    get:
+      consumes:
+      - application/json
+      description: gets the smart contracts address and related info
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/routes.SmartContractResp'
+            type: array
+        "404":
+          description: 'no account with that id: (with your accountID)'
+          schema:
+            type: string
+      summary: gets the smart contracts address
+  /api/v2/upload-public:
+    post:
+      consumes:
+      - multipart/form-data
+      description: |-
+        upload a chunk of a file. The first partIndex must be 1. The storage for this file does not count
+        requestBody should be a stringified version of (values are just examples):
+        {
+        "fileHandle": "a deterministically created file handle",
+        "partIndex": 1,
+        }
+      parameters:
+      - description: an object to upload a chunk of an unencrypted file (the storage
+          for this file does no count)
+        in: body
+        name: UploadFileReq
+        required: true
+        schema:
+          $ref: '#/definitions/routes.UploadFileReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.StatusRes'
+        "400":
+          description: bad request, unable to parse request body
+          schema:
+            type: string
+        "403":
+          description: signature did not match
+          schema:
+            type: string
+        "404":
+          description: file or account not found
+          schema:
+            type: string
+        "500":
+          description: some information about the internal error
+          schema:
+            type: string
+      summary: upload a chunk of a file
+  /api/v2/upload-status-public:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        check status of a public upload and creates a thumbnail in case the file is an image. If the mimeType is send, the API will not create the thumbnail
+        "jpg" (or "jpeg"), "png", "gif", "tif" (or "tiff") and "bmp" are supported
+        requestBody should be a stringified version of (values are just examples):
+        {
+        "fileHandle": "a deterministically created file handle",
+        "mimeType": "the mime type of the file",
+        "title": "file title",
+        "description": "a description to be used as metatags value"
+        }
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.StatusRes'
+        "400":
+          description: 'bad request, unable to parse request body: (with the error)'
+          schema:
+            type: string
+        "403":
+          description: signature did not match
+          schema:
+            type: string
+        "404":
+          description: file not found
+          schema:
+            type: string
+        "500":
+          description: some information about the internal error
+          schema:
+            type: string
+      summary: check status of a public upload
+  /plans:
+    get:
+      consumes:
+      - application/json
+      description: get the plans we sell
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.PlanResponse'
+      summary: get the plans we sell
+swagger: "2.0"

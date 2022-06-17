@@ -1,0 +1,140 @@
+version: "3.3"
+
+services:
+  prometheus:
+    build:
+      context: ./prometheus
+      dockerfile: Dockerfile
+      cache_from:
+        - 174232317769.dkr.ecr.${AWS_REGION}.amazonaws.com/prometheus:${IMAGE_TAG}
+    image: 174232317769.dkr.ecr.${AWS_REGION}.amazonaws.com/prometheus:${IMAGE_TAG}
+    ports:
+      - 9090:9090
+    volumes:
+      - ../storage-node-data/prometheus_data:/prometheus
+    entrypoint: ./prometheus/entrypoint.sh ${ADMIN_USER} ${ADMIN_PASSWORD}
+      # nginx will be listening on port 12321
+      # must create /etc/nginx/sites-available/prometheus-proxy, symbolically link it in /etc/nginx/sites-enabled,
+      # and restart nginx.  More info in README.
+    networks:
+      - promnet
+
+  influxdb:
+    build:
+      context: ./influxdb
+      dockerfile: Dockerfile
+      cache_from:
+        - 174232317769.dkr.ecr.${AWS_REGION}.amazonaws.com/influxdb:${IMAGE_TAG}
+    image: 174232317769.dkr.ecr.${AWS_REGION}.amazonaws.com/influxdb:${IMAGE_TAG}
+    networks:
+      - promnet
+    ports:
+      - 8083:8083
+      - 8086:8086
+      - 8090:8090
+    restart: "always"
+    volumes:
+      - ../storage-node-data/influxdb_data:/var/lib/influxdb
+    environment:
+      - INFLUXDB_DB=prometheus
+      - INFLUXDB_ADMIN_USER=${ADMIN_USER}
+      - INFLUXDB_ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - INFLUXDB_USER=${ADMIN_USER}
+      - INFLUXDB_USER_PASSWORD=${ADMIN_PASSWORD}
+      - INFLUXDB_READ_USER=${ADMIN_USER}
+      - INFLUXDB_READ_USER_PASSWORD=${ADMIN_PASSWORD}
+
+  # Explore current machine metric for prometheus to scrape.
+  node-exporter:
+    image: prom/node-exporter
+    ports:
+      - 9100:9100
+    networks:
+      - promnet
+
+# If we decide to turn on our own grafana dashboard
+#  grafana:
+#    image: grafana/grafana
+#    environment:
+#      - GF_SECURITY_ADMIN_PASSWORD=<your_password>
+#      - GF_SERVER_HTTP_PORT=3100
+#    depends_on:
+#      - prometheus
+#    ports:
+#      - 3100:3100
+#    volumes:
+#      - ../storage-node-data/grafana_data:/var/lib/grafana
+#    networks:
+#      - promnet
+
+  storage-node:
+    build:
+      context: "."
+      cache_from:
+        - 174232317769.dkr.ecr.${AWS_REGION}.amazonaws.com/storage-node:${IMAGE_TAG}
+    image: 174232317769.dkr.ecr.${AWS_REGION}.amazonaws.com/storage-node:${IMAGE_TAG}
+    restart: "always"
+    ports:
+    - ${APP_PORT:-3000}:3000
+    env_file:
+      - ".env"
+    depends_on:
+    - "db"
+    volumes:
+    - "../storage-node-data/badger/prod:/var/lib/badger/prod"
+    - "../storage-node-data/badger/test:/var/lib/badger/test"
+    working_dir: "/go/src/github.com/opacity/storage-node"
+    command: >
+      bash -c "
+        echo waiting for db...;
+        while ! nc -z db 3306;
+        do
+          sleep 0.5;
+          free -m;
+        done;
+        echo ${DEBUG}
+        if [ -z ${DEBUG} ]; then
+          echo \"Starting Storage node in PROD mode\";
+          go build -ldflags='-X main.GO_ENV=${GO_ENV} -X main.VERSION=${VERSION}' -o ./bin/storage-node && chmod +x ./bin/storage-node;
+          ./bin/storage-node;
+        else
+          go get -d github.com/codegangsta/gin
+          echo \"Starting Storage node in DEV mode\";
+          gin --buildArgs \"-ldflags '-X main.GO_ENV=${GO_ENV} -X main.VERSION=${VERSION}'\" run main.go
+        fi
+      "
+    networks:
+      - promnet
+      - dbnet
+
+  db:
+    container_name: mysql
+    image: mysql:5.7
+    restart: "always"
+    command: --sql_mode=''
+    # command: mysqld --sql_mode=''
+    environment:
+      - MYSQL_DATABASE=test
+      - MYSQL_ROOT_USER=root
+      - MYSQL_ROOT_PASSWORD=secret
+    ports:
+      - "33060:3306"
+    volumes:
+      - "../storage-node-data/db/mysql:/var/lib/mysql"
+    networks:
+      - dbnet
+
+# In order for each service to connect to each other, They need to be on the same
+# network and use name like "storage-node", "db", "prometheus" for reference. Ex: "db:3306", "storage-node:3000".
+networks:
+  promnet:
+    driver: bridge
+  dbnet:
+    driver: bridge
+
+volumes:
+  prometheus_data: {}
+  influxdb_data: {}
+  prometheus_data: {}
+# grafana_data: {}
+
